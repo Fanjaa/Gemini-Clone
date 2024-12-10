@@ -6,7 +6,8 @@ import { Context } from '../../context/Context'
 
 const Sidebar = () => {
 
-    const [extended,setExtended] = useState(false)
+    const [extended, setExtended] = useState(false)
+    const [showCard, setShowCard] = useState(false)
     const {onSent, prevPrompts, setRecentPrompt, newChat} = useContext(Context)
 
     const loadPrompt = async (prompt) => {
@@ -15,9 +16,12 @@ const Sidebar = () => {
     }
 
   return (
-    <div className='sidebar'>
+    <div className={`sidebar ${extended ? "extended" : ""}`}>
       <div className="top">
+        <div className="top-menu">
         <img onClick={()=>setExtended(prev=>!prev)} className="menu" src={assets.menu_icon} alt="" />
+        <p>Gemini</p>
+        </div>
         <div onClick={()=>newChat()} className="new-chat">
             <img src={assets.plus_icon} alt="" />
             {extended?<p>New Chat</p>:null}
@@ -31,7 +35,7 @@ const Sidebar = () => {
             // eslint-disable-next-line react/jsx-key
             <div onClick={()=>loadPrompt(item)} className="recent-entry">
                 <img src={assets.message_icon} alt="" />
-                <p>{item.slice(0,18)} ...</p>
+                <p>{item.length > 18 ? item.slice(0, 18) + "..." : item}</p>
             </div>  
                 )            
         })}
@@ -40,9 +44,9 @@ const Sidebar = () => {
     }
       </div>
       <div className="bottom">
-        <div className="bottom-item recent-entry">
-            <img src={assets.question_icon} alt="" />
-            {extended?<p>Help</p>:null}        
+        <div className="bottom-item recent-entry" onClick={()=>setShowCard(prev=>!prev)}>
+            <img src={assets.info_icon} alt="" />
+            {extended?<p>Info</p>:null}        
         </div>
         <div className="bottom-item recent-entry">
             <img src={assets.history_icon} alt="" />
@@ -53,6 +57,11 @@ const Sidebar = () => {
             {extended?<p>Settings</p>:null}        
         </div>
       </div>
+      {showCard? 
+        <div className="card-item">
+          &quot;App developed by <a href='https://www.linkedin.com/in/fanjaaa/' target='blank' rel='noopener noreferrer'>Fanjaa</a>. Special thanks to the <a href='https://ai.google.dev/' target='blank' rel='noopener noreferrer'>Gemini AI</a> team for providing the powerful API that makes this app possible.&quot;
+        </div>
+      :null}
     </div>
   )
 }

@@ -8,6 +8,25 @@ const Main = () => {
 
     const {onSent, recentPrompt, showResult, loading, resultData, setInput, input} = useContext(Context)
 
+    // Adjust Text Area  
+    const adjustHeight = (e) => {
+        const textarea = e.target;
+        textarea.style.height = 'auto';
+
+        const maxHeight = 90; 
+        const newHeight = Math.min(textarea.scrollHeight, maxHeight);
+        textarea.style.height = `${newHeight}px`;
+      };
+
+    // Handle Key Down
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();  
+          onSent();  
+        }
+      };
+      
+
     return (
     <div className='main'>
         <div className="nav">
@@ -19,7 +38,7 @@ const Main = () => {
             {!showResult
             ?<>
             <div className="greet">
-                <p><span>Hello, Dev.</span></p>
+                <p><span>Hello, Fanjaaa.</span></p>
                 <p>How can I help you today?</p>
             </div>
             <div className="cards">
@@ -63,7 +82,7 @@ const Main = () => {
 
             <div className="main-bottom">
                 <div className="search-box">
-                    <input onChange={(e)=>setInput(e.target.value)} value={input} type="text" placeholder='Enter a prompt here'/>
+                    <textarea onChange={(e)=>setInput(e.target.value)} onInput={adjustHeight} value={input} type="text" rows="1" placeholder='Enter a prompt here' onKeyDown={handleKeyDown}/>
                     <div>
                         <img src={assets.gallery_icon} alt="" />
                         <img src={assets.mic_icon} alt="" />

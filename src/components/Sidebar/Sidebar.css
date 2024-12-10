@@ -5,6 +5,14 @@
     justify-content: space-between;
     background-color: #f0f4f9;
     padding: 25px 15px;
+    width: 80px; 
+    overflow: hidden;
+    transition: width 0.3s ease; 
+}
+
+  
+.sidebar.extended {
+width: 280px; 
 }
 
 .sidebar img {
@@ -28,12 +36,34 @@
     font-size: 14px;
     color: grey;
     cursor: pointer;
+    width: 50px;
+    overflow: hidden;
+    transition: width 0.1s ease; 
+    white-space: nowrap;
+}
+
+.sidebar .new-chat:hover img{
+    filter: grayscale(100%) brightness(0);
+}
+
+.sidebar .new-chat:hover p {
+    color: black;
+}
+
+.sidebar.extended .new-chat{
+    width: 130px;
+}
+
+.sidebar .new-chat:hover {
+    background-color: #e6ebf8;
 }
 
 .sidebar .recent {
     display: flex;
     flex-direction: column;
     animation: fadeIn 1.5s;
+    white-space: nowrap;
+
 }
 
 .sidebar .recent-title {
@@ -66,8 +96,115 @@
     cursor: pointer;
 }
 
+.sidebar .top-menu p {
+    display: none;
+}
+
+.sidebar .card-item {
+    position: absolute;
+    display: block;
+    width: 200px;
+    left: 5%;
+    top: 65%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f0f4f9;
+    box-shadow: 4px 4px 8px;
+    z-index: 10;
+}
+
+.sidebar.extended .card-item {
+    width: 300px;
+    left: 10%;
+    top: 75%;
+}
+
+.sidebar .card-item a {
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.sidebar .card-item a:hover {
+    color: #551AD5;
+}
+
+.sidebar .card-item a:active {
+    color: grey;
+}
+
+
 @media (max-width: 600px) {
+    .sidebar .top-menu {
+        display: flex;
+    }
+
+    .sidebar.extended .top-menu p {
+        display: flex;
+        font-size: 22px;
+        padding-left: 10px;
+        color: #585858;
+    }
+
+    .sidebar .menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        width: 35px;
+        height: 35px;
+        padding: 5px;
+        margin-left: 0;
+    }
+
+    .sidebar.extended .menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .sidebar .menu:active {
+        background-color: #e6eaf1;
+        border-radius: 50%;
+    }
+
     .sidebar {
+        position: absolute;
+        z-index: 3;
+        background: transparent;
+    }
+
+    .sidebar.extended{
+        display: flex;  
+        width: calc(100% - 35%);
+        background-color: #f0f4f9;
+        /* background: rgba(255, 255, 255, 0.1);
+        filter: blur(10px);
+        backdrop-filter: blur(10px); 
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3); 
+        z-index: 2; */
+    }
+
+    .sidebar .bottom, .sidebar .recent, .sidebar .new-chat {
+        transition: width 1s ease, opacity 0.4s ease; 
+        opacity: 0;
+    }
+    
+    .sidebar.extended .bottom, .sidebar.sidebar.extended .recent, .sidebar.extended .new-chat {
+        display: flex;
+        opacity: 1;
+    }
+
+    .sidebar .card-item {
         display: none;
     }
+    
+    .sidebar.extended .card-item {
+        display: block;
+        position: absolute;
+        width: 170px;
+        left: 15%;
+        top: 48%;
+    }
+    
 }
